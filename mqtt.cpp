@@ -13,9 +13,9 @@ void callback(char* topic, byte* payload, unsigned int length)
   {
     for(char i = 0; i < 10; i++)
     {
-      leds[0] = CRGB::Red;
+      leds[0] = CRGB(63, 0, 0);
       delay(200);
-      leds[0] = CRGB::Yellow;
+      leds[0] = CRGB(31, 31, 0);
       delay(200);
     }
   }
@@ -37,7 +37,7 @@ void callback(char* topic, byte* payload, unsigned int length)
     effect.colorAmount = docData["colorAmount"];
     if(effect.colorAmount > MAX_HUES)
     {
-      leds[0] = CRGB::Purple;
+      leds[0] = CRGB(31, 0, 31);
       FastLED.show();
       delay(5000);
     }
@@ -54,18 +54,18 @@ void reconnectMqtt()
 {
   while(!client.connected())
   {
-    leds[0] = CRGB::Purple;
+    leds[0] = CRGB(31, 0, 31);
     FastLED.show();
     if(client.connect("LED_Room", MQTT_USER, MQTT_PASS))
     {
 //      client.publish(MQTT_TOPIC_STATUS, "1");
       client.subscribe(MQTT_TOPIC_DATA);
       
-      leds[0] = CRGB::Blue;
+      leds[0] = CRGB(0, 0, 63);
     }
     else
     {
-      leds[0] = CRGB::Red;
+      leds[0] = CRGB(63, 0, 0);
     }
       FastLED.show();
       delay(500);

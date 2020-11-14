@@ -41,7 +41,7 @@ void setup()
   while (WiFi.status() != WL_CONNECTED && nbTent < DELAI_CONNEXION * 4)
   {
     if (nbTent % 2 == 0)
-      leds[0] = CRGB::Yellow;
+      leds[0] = CRGB(31, 31, 0);
     else
       leds[0] = CRGB::Black;
     FastLED.show();
@@ -50,12 +50,15 @@ void setup()
   }
   Serial.println();
 
+  // Default pattern
+  setAll(127, 127, 127);
+
   if(nbTent >= DELAI_CONNEXION * 4) // Connexion echouee
   {
     while(1)
     {
       if (nbTent % 2 == 0)
-        leds[0] = CRGB::Red;
+        leds[0] = CRGB(63, 0, 0);
       else
         leds[0] = CRGB::Black;
       FastLED.show();
@@ -65,7 +68,7 @@ void setup()
   }
   else
   {
-    leds[0] = CRGB::Green;
+    leds[0] = CRGB(0, 63, 0);
     FastLED.show();
     delay(500);
     leds[0] = CRGB::Black;
@@ -110,7 +113,7 @@ void loop()
 
   if(strcmp(effect.currentMode, "none") != 0)
   {
-    leds[0] = CRGB::Green;
+    leds[0] = CRGB(0, 15, 0);
     if(strcmp(effect.currentMode, "off") == 0)
     {
         setAll(0, 0, 0);
@@ -257,7 +260,7 @@ void loop()
       }
       else
       {
-        leds[0] = CRGB::Red;
+        leds[0] = CRGB(63, 0, 0);
         FastLED.show();
       }
       if(effectIndex == 0)
@@ -267,8 +270,8 @@ void loop()
   else
   {
     setAll(127, 127, 127);
-    leds[0] = CRGB::Yellow;
     FastLED.show();
+    delay(1000);
   }
 
 }
